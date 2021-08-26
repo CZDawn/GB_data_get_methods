@@ -19,6 +19,8 @@ def hhVacansies():
             'items_on_page': 20
         }
 
+        print(params['page'])
+        print(f'Собираю данные со страницы {i}')
         response = requests.get(url + '/search/vacancy', params=params, headers=headers)
         soup = bs(response.text, 'html.parser')
         vacansies = soup.find_all('div', {'class':'vacancy-serp-item'})

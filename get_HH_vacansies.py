@@ -3,41 +3,52 @@ This module generate the full informaition about all vacansies on the HH.ru
 """
 
 def getMinSalary(salary: str):
-    """Find the minimum sallary from current vacansy"""
-    if len(salary.split()) < 5:
-        return int(salary.split()[0])
-    return int(salary.split()[0] + salary.split()[1])
-
+    resultList = []
+    for el in salary.split():
+        if el.isdigit():
+            resultList.append(el)
+    if len(resultList) >= 2 and resultList[1] == '000':
+        return int(resultList[0] + resultList[1])
+    return int(resultList[0])
 
 def getMaxSalary(salary: str):
-    """Find the maximum sallary from current vacansy"""
-    if len(salary.split()) > 5:
-        return int(salary.split()[-3] + salary.split()[-2])
-    return int(salary.split()[-2] + salary.split()[-1])
-
+    resultList = []
+    for el in salary.split():
+        if el.isdigit():
+            resultList.append(el)
+    if len(resultList) == 1:
+        return int(resultList[0])
+    if len(resultList) == 2 and resultList[1] == '000':
+        return int(resultList[0] + resultList[1])
+    if len(resultList) == 2 and resultList[1] != '000':
+        return int(resultList[1])
+    if len(resultList) == 3:
+        return int(resultList[1] + resultList[2])
+    return int(resultList[2] + resultList[3])
 
 def getSalaryCurrency(salary: str):
-    """Find the currensy of sallary in current vacansy"""
-
-    if salary.text[-4::][0] == ' ':
-        return salary.text[-4::].replace(' ', '')
-    return salary.text[-4:-1:]
-
+    resultList = []
+    for el in salary.split():
+        if el.isdigit() == False:
+            resultList.append(el)
+    if 'бел.' in resultList:
+        return resultList[-2] + resultList[-1]
+    return resultList[-1]
 
 def makeSalaryInfo(salary: str, flag):
     """Make the object with the salary info for current vacansy"""
 
     salary_info = {}
     if flag == 'от':
-        salary_info['min_salary'] = getMinSalary(salary.text[2:-4:])
+        salary_info['min_salary'] = getMinSalary(salary.text)
         salary_info['max_salary'] = None
     elif flag == 'до':
         salary_info['min_salary'] = None
-        salary_info['max_salary'] = getMaxSalary(salary.text[2:-4:])
+        salary_info['max_salary'] = getMaxSalary(salary.text)
     elif flag == 'нет':
-        salary_info['min_salary'] = getMinSalary(salary.text[:-4:])
-        salary_info['max_salary'] = getMaxSalary(salary.text[:-4:])
-    salary_info['salary_currency'] = getSalaryCurrency(salary)
+        salary_info['min_salary'] = getMinSalary(salary.text)
+        salary_info['max_salary'] = getMaxSalary(salary.text)
+    salary_info['salary_currency'] = getSalaryCurrency(salary.text)
     return salary_info
 
 
