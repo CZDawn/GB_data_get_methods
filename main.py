@@ -4,6 +4,7 @@ from bs4 import BeautifulSoup as bs
 from get_HH_vacansies import getHeadHunterVacansies
 
 def hhVacansies():
+    data = []
     for i in range(0, 100):
         url = 'https://nn.hh.ru'
         user_agent = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) '\
@@ -24,8 +25,9 @@ def hhVacansies():
         vacansies = soup.find_all('div', {'class':'vacancy-serp-item'})
 
         hh_result = getHeadHunterVacansies(vacansies, url)
-        with open('vacansies_info.json', 'a', encoding='UTF-8') as file:
-            json.dump(hh_result, file, indent=4, ensure_ascii=False)
+        data.append(hh_result)
+    with open('vacansies_info.json', 'a', encoding='UTF-8') as file:
+        json.dump(data, file, indent=4, ensure_ascii=False)
 
 
 if __name__ == '__main__':
