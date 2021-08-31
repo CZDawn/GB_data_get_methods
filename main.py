@@ -11,7 +11,9 @@ collection = db.hh_vacansies
 def pushDataToDataBase(data: list):
     for el in data:
         for item in el:
-            collection.insert_one(item)
+            collection.update_one(
+                    {'vacansy_link': item['vacansy_link']},
+                    {'$set': item}, upsert=True)
 
 def fillDataBaseByData():
     with open('vacansies_info.json', 'r', encoding='UTF-8') as file:
