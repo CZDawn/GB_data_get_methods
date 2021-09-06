@@ -10,9 +10,7 @@ db = client['Mvideo_products']
 collection = db.novelties
 
 driver = webdriver.Chrome(
-    executable_path = '/Users/codezerodawn/Documents/'\
-                      '#STUDY/GeekBrains/data_get_methods/'\
-                      'GB_data_get_methods/chromedriver')
+    executable_path = 'Enter your root to chromedriver')
 
 driver.implicitly_wait(10)
 
