@@ -14,7 +14,13 @@ class LeroymerlinPipeline:
     def process_item(self, item, spider):
         desc_list = item['description']
         desc_data = []
-
+        count = 0
+        for i in range(int(len(desc_list) / 2)):
+            desc_info = {
+                desc_list[count]: desc_list[count+1]
+            }
+            desc_data.append(desc_info)
+            count += 2
         item['description'] = desc_data
         return item
 
