@@ -10,13 +10,11 @@ from pymongo import MongoClient
 
 
 class InstaparserPipeline:
-    '''
     def __init__(self):
         client = MongoClient('localhost', 27017)
         self.mongo_base = client.instagram2021
-    '''
+
     def process_item(self, item, spider):
-        #collection = self.mongo_base[spider.name]
-        #collection.insert_one(item)
-        print(item)
+        collection = self.mongo_base[spider.name]
+        collection.insert_one(item)
         return item
