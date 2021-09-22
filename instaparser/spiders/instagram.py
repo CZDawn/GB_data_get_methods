@@ -9,7 +9,7 @@ class InstagramSpider(scrapy.Spider):
     name = 'instagram'
     allowed_domains = ['instagram.com']
     start_urls = ['https://www.instagram.com/']
-    insta_login_link = 'https://www.instagram.com/accounts/login/ajax/'
+    insta_login_link = 'https://www.instagram.com/accounts/login/ajax'
 
     #TODO - вписать свой логин
     insta_login = 'Onliskill_udm'
@@ -21,7 +21,7 @@ class InstagramSpider(scrapy.Spider):
                  'ngVo1apn3eJ6O3UAFVgb+q5HtHsQ='
 
     users_parse = ['ai_machine_learning', 'livethevanlife']
-    api_url = 'https://i.instagram.com/api/v1/friendships/'
+    api_url = 'https://i.instagram.com/api/v1/friendships'
 
 
     def parse(self, response: HtmlResponse):
@@ -54,7 +54,7 @@ class InstagramSpider(scrapy.Spider):
             'count': 12,
             'search_surface': 'follow_list_page'
         }
-        url_followers = f'{self.api_url}{user_id}/followers/?{urlencode(variables)}'
+        url_followers = f'{self.api_url}/{user_id}/followers/?{urlencode(variables)}'
         yield response.follow(
             url_followers,
             callback=self.user_followers_parse,
